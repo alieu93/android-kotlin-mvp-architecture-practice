@@ -1,4 +1,4 @@
-package com.example.android_kotlin_mvp_architecture_practice
+package com.example.android_kotlin_mvp_architecture_practice.main.ui
 
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -6,19 +6,28 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.example.android_kotlin_mvp_architecture_practice.R
+import com.example.android_kotlin_mvp_architecture_practice.base.BaseActivity
+import com.example.android_kotlin_mvp_architecture_practice.main.contract.MainContract
+import com.example.android_kotlin_mvp_architecture_practice.main.presenter.MainPresenter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity(), MainContract.View {
+    private lateinit var mPresenter: MainContract.Presenter
+    override val layoutResource = R.layout.activity_main
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun initialize(state: Bundle?) {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+
+        mPresenter = MainPresenter()
+        mPresenter.attachView(this)
+        mPresenter.onViewCreated()
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
