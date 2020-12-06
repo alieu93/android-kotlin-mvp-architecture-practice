@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import java.io.Serializable
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
+    private lateinit var mPresenter: BasePresenter<*>
     private val INTENT_KEY_ARG_DATA = "ARG_DATA"
 
     //Resource Id of the layout
@@ -23,4 +24,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     protected fun <T : Serializable> getArgData(): T {
         return intent.getSerializableExtra(INTENT_KEY_ARG_DATA) as T
     }
+
+    abstract fun getPresenter(): BasePresenter<*>
 }

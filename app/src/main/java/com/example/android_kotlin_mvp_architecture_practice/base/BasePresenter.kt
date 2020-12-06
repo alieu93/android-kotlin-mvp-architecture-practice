@@ -1,15 +1,11 @@
 package com.example.android_kotlin_mvp_architecture_practice.base
 
-abstract class BasePresenter<V : BaseView> : MvpPresenter<V> {
-    var view: V? = null
+interface BasePresenter<V : BaseView> {
+    val isAttached: Boolean
 
-    override val isAttached = view != null
+    fun attachView(view: V)
 
-    override fun attachView(view: V) {
-        this.view = view
-    }
+    fun detachView()
 
-    override fun detachView() {
-        view = null
-    }
+    fun getView() : V?
 }
