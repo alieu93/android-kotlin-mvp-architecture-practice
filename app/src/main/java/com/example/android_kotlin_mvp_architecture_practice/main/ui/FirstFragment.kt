@@ -36,7 +36,8 @@ class FirstFragment : MainContract.View, Fragment() {
     }
 
     override fun navigateToSecondFragment(numberOfTimesClicked: String) {
-        mButtonFirst.text = mButtonFirst.text.toString().plus(" $numberOfTimesClicked")
+        //TOOD Restoration of button text on return to this fragment (onRestore?)
+        mButtonFirst.text = "$numberOfTimesClicked times"
 
         //TODO Creation of BaseFragment class for this kind of logic
         activity?.supportFragmentManager?.beginTransaction()
