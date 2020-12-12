@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidkotlinmvparchitecturepractice">
         <activity
-            android:name=".main.ui.MainActivity"
+            android:name=".main.ui.ToDoActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Androidkotlinmvparchitecturepractice.NoActionBar">
             <intent-filter>

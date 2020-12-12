@@ -3,6 +3,7 @@ package com.example.android_kotlin_mvp_architecture_practice.base
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import java.io.Serializable
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
@@ -26,4 +27,8 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     }
 
     abstract fun getPresenter(): BasePresenter<*>
+
+    protected fun replaceFragmentTransaction(containerViewId: Int, fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(containerViewId, fragment).commit()
+    }
 }
