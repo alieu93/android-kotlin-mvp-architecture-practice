@@ -33,6 +33,7 @@ class ToDoFragment : ToDoContract.View, Fragment() {
     }
 
     private fun initializeMockList(): List<String> {
+        //TODO Replace this with actual data that can be stored and created as well as recreated when app dies/closes/shuts down
         return listOf("Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7", "Test8", "Test9", "Test10",
                 "Test11", "Test12", "Test13", "Test14", "Test15", "Test16", "Test17", "Test18", "Test19", "Test20")
     }
