@@ -1,5 +1,6 @@
 package com.example.android_kotlin_mvp_architecture_practice.main.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,11 +9,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_kotlin_mvp_architecture_practice.R
+import com.example.android_kotlin_mvp_architecture_practice.addtodoitem.ui.AddToDoItemActivity
 import com.example.android_kotlin_mvp_architecture_practice.main.contract.ToDoContract
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 class ToDoFragment : ToDoContract.View, Fragment() {
     private lateinit var mPresenter: ToDoContract.Presenter
     private lateinit var mToDoAdapter: ToDoAdapter
@@ -48,6 +47,10 @@ class ToDoFragment : ToDoContract.View, Fragment() {
         mToDoAdapter = ToDoAdapter(dataSet)
         mToDoRecyclerView.adapter = mToDoAdapter
         mToDoAdapter.notifyDataSetChanged()
+    }
+
+    override fun goToAddNewToDoItemActivity(activityRequestCode: Int) {
+        startActivityForResult(Intent(activity, AddToDoItemActivity::class.java), activityRequestCode)
     }
 
     fun setPresenter(presenter: ToDoContract.Presenter) {

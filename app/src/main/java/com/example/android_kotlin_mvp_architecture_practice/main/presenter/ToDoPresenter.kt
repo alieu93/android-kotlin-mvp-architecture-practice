@@ -12,6 +12,10 @@ class ToDoPresenter(mainView: ToDoContract.View) : BasePresenter<ToDoContract.Vi
         mainView?.showToDoList(dataSet)
     }
 
+    override fun onClickAddNewToDoItemFab(activityRequestCode: Int) {
+        mainView?.goToAddNewToDoItemActivity(activityRequestCode)
+    }
+
     override fun attachView(view: ToDoContract.View) {
         mainView = view
     }

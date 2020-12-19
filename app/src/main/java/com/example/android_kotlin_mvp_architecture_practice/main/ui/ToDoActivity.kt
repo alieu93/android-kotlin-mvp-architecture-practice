@@ -1,5 +1,6 @@
 package com.example.android_kotlin_mvp_architecture_practice.main.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,7 +10,6 @@ import com.example.android_kotlin_mvp_architecture_practice.base.BasePresenter
 import com.example.android_kotlin_mvp_architecture_practice.main.contract.ToDoContract
 import com.example.android_kotlin_mvp_architecture_practice.main.presenter.ToDoPresenter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 
 
 class ToDoActivity : BaseActivity(), ToDoContract.View {
@@ -21,8 +21,7 @@ class ToDoActivity : BaseActivity(), ToDoContract.View {
         setSupportActionBar(findViewById(R.id.toolbar))
         initializeFragmentPresenter()
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            mPresenter.onClickAddNewToDoItemFab(ADD_TO_DO_ITEM_REQUEST_CODE)
         }
 
         replaceFragmentTransaction(R.id.main_activity_fragment_container, mToDoFragment)
@@ -33,7 +32,6 @@ class ToDoActivity : BaseActivity(), ToDoContract.View {
         mToDoFragment = ToDoFragment().newInstance()
         mToDoFragment.setPresenter(mPresenter)
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -51,11 +49,23 @@ class ToDoActivity : BaseActivity(), ToDoContract.View {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
     override fun showToDoList(dataSet: List<String>) {
         mToDoFragment.showToDoList(dataSet)
     }
 
+    override fun goToAddNewToDoItemActivity(activityRequestCode: Int) {
+        mToDoFragment.goToAddNewToDoItemActivity(activityRequestCode)
+    }
+
     override fun getPresenter(): BasePresenter<*> {
         return mPresenter
+    }
+
+    companion object {
+        private const val ADD_TO_DO_ITEM_REQUEST_CODE = 30
     }
 }
