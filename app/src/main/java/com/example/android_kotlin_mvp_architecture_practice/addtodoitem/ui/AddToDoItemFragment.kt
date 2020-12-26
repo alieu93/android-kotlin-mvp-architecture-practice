@@ -51,7 +51,7 @@ class AddToDoItemFragment :  AddToDoItemContract.View, Fragment() {
     }
 
     override fun showValidationError() {
-        mAddToDoItemEditText.error = "Please enter a new task"
+        mAddToDoItemEditText.error = "Please enter a new task!"
         mAddToDoItemEditText.requestFocus()
     }
 
