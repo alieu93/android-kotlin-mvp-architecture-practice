@@ -2,6 +2,7 @@ package com.example.android_kotlin_mvp_architecture_practice.main.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -18,8 +19,12 @@ class ToDoActivity : BaseActivity(), ToDoContract.View {
     override val layoutResource = R.layout.activity_main_to_do
     private lateinit var mPresenter: ToDoContract.Presenter
     private lateinit var mToDoFragment : ToDoFragment
+    private lateinit var mToDoSet: MutableSet<String>
 
     override fun initialize(state: Bundle?) {
+        //TODO load shared preference, remove this when it is implemented (initialize mutableSet if no existing set is found)
+        mToDoSet = mutableSetOf()
+
         setSupportActionBar(findViewById(R.id.toolbar))
         initializeFragmentPresenter()
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
@@ -54,8 +59,15 @@ class ToDoActivity : BaseActivity(), ToDoContract.View {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == ADD_TO_DO_ITEM_REQUEST_CODE) {
-            //TODO Append to list and save item to persist
+            /** Append to set and save item to persist in SharedPreferences, remove toast when it is implemented
+             *  ToDoActivity will control Set of TODOs, initialize set at onCreate and subsequent new appends are done here
+             *  Presenter will be invoked in order to update the list with new entry and call recyclerView to update accordingly
+             **/
+
             Toast.makeText(applicationContext, "" + data?.getStringExtra(ADD_TO_DO_ITEM_KEY), Toast.LENGTH_SHORT).show()
+            if (data != null) {
+                data.getStringExtra(ADD_TO_DO_ITEM_KEY)?.let { mToDoSet.add(it) }
+            }
         }
     }
 
