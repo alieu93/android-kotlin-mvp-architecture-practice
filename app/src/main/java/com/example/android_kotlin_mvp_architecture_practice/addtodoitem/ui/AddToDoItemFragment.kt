@@ -44,7 +44,6 @@ class AddToDoItemFragment :  AddToDoItemContract.View, Fragment() {
     }
 
     override fun saveToDoItem(description: String, intentKey: String) {
-        //activity?.setResult(Activity.RESULT_OK, Intent().putExtra(intentKey, description))
         val intent = Intent().putExtra(intentKey, description)
         activity?.setResult(Activity.RESULT_OK, intent)
         activity?.finish()
