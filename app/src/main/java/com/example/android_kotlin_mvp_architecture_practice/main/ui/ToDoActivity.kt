@@ -1,9 +1,11 @@
 package com.example.android_kotlin_mvp_architecture_practice.main.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.example.android_kotlin_mvp_architecture_practice.R
 import com.example.android_kotlin_mvp_architecture_practice.base.BaseActivity
 import com.example.android_kotlin_mvp_architecture_practice.base.BasePresenter
@@ -51,6 +53,10 @@ class ToDoActivity : BaseActivity(), ToDoContract.View {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == ADD_TO_DO_ITEM_REQUEST_CODE) {
+            //TODO Append to list and save item to persist
+            Toast.makeText(applicationContext, "" + data?.getStringExtra(ADD_TO_DO_ITEM_KEY), Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun showToDoList(dataSet: List<String>) {
@@ -67,5 +73,6 @@ class ToDoActivity : BaseActivity(), ToDoContract.View {
 
     companion object {
         private const val ADD_TO_DO_ITEM_REQUEST_CODE = 30
+        private const val ADD_TO_DO_ITEM_KEY = "ADD_TO_DO_ITEM_KEY"
     }
 }

@@ -1,12 +1,15 @@
 package com.example.android_kotlin_mvp_architecture_practice.addtodoitem.ui
 
 import android.app.Activity
+import android.app.ProgressDialog.show
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.android_kotlin_mvp_architecture_practice.R
 import com.example.android_kotlin_mvp_architecture_practice.addtodoitem.contract.AddToDoItemContract
@@ -34,15 +37,22 @@ class AddToDoItemFragment :  AddToDoItemContract.View, Fragment() {
         mSaveToDoItemButton.setOnClickListener {
             mPresenter.onSaveButtonClicked(mAddToDoItemEditText.text?.toString(), ADD_TO_DO_ITEM_KEY)
         }
+
+        mAddToDoItemEditText.addTextChangedListener {
+            mAddToDoItemEditText.error = null
+        }
     }
 
     override fun saveToDoItem(description: String, intentKey: String) {
-        activity?.setResult(Activity.RESULT_OK, Intent().putExtra(intentKey, description))
+        //activity?.setResult(Activity.RESULT_OK, Intent().putExtra(intentKey, description))
+        val intent = Intent().putExtra(intentKey, description)
+        activity?.setResult(Activity.RESULT_OK, intent)
         activity?.finish()
     }
 
     override fun showValidationError() {
-        TODO("Not yet implemented")
+        mAddToDoItemEditText.error = "Please enter a new task"
+        mAddToDoItemEditText.requestFocus()
     }
 
     fun setPresenter(presenter: AddToDoItemContract.Presenter) {

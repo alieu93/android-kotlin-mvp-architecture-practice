@@ -28,7 +28,7 @@ class AddToDoItemActivity : BaseActivity(), AddToDoItemContract.View {
     }
 
     override fun showValidationError() {
-        TODO("Not yet implemented")
+        mAddToDoFragment.showValidationError()
     }
 
     override fun getPresenter(): BasePresenter<*> {
