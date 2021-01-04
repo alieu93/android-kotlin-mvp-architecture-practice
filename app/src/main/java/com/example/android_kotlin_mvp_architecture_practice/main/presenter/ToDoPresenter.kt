@@ -8,7 +8,7 @@ class ToDoPresenter(mainView: ToDoContract.View) : BasePresenter<ToDoContract.Vi
 
     override val isAttached = getView() != null
 
-    override fun initializeToDoList(dataSet: List<String>) {
+    override fun showToDoList(dataSet: List<String>) {
         mainView?.showToDoList(dataSet)
     }
 

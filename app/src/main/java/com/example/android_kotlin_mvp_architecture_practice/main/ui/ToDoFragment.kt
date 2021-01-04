@@ -16,6 +16,7 @@ class ToDoFragment : ToDoContract.View, Fragment() {
     private lateinit var mPresenter: ToDoContract.Presenter
     private lateinit var mToDoAdapter: ToDoAdapter
     private lateinit var mToDoRecyclerView: RecyclerView
+    private lateinit var mToDoSet: MutableSet<String>
 
     fun newInstance(): ToDoFragment {
         return ToDoFragment()
@@ -31,16 +32,10 @@ class ToDoFragment : ToDoContract.View, Fragment() {
         initializeRecyclerView(view)
     }
 
-    private fun initializeMockList(): List<String> {
-        //TODO Replace this with actual data that can be stored and created as well as recreated when app dies/closes/shuts down
-        return listOf("Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7", "Test8", "Test9", "Test10",
-                "Test11", "Test12", "Test13", "Test14", "Test15", "Test16", "Test17", "Test18", "Test19", "Test20")
-    }
-
     private fun initializeRecyclerView(view: View) {
         mToDoRecyclerView = view.findViewById(R.id.to_do_recyclerview)
         mToDoRecyclerView.layoutManager = LinearLayoutManager(this.context)
-        mPresenter.initializeToDoList(initializeMockList())
+        mPresenter.showToDoList(mToDoSet.toList())
     }
 
     override fun showToDoList(dataSet: List<String>) {
@@ -49,11 +44,16 @@ class ToDoFragment : ToDoContract.View, Fragment() {
         mToDoAdapter.notifyDataSetChanged()
     }
 
+
     override fun goToAddNewToDoItemActivity(activityRequestCode: Int) {
         startActivityForResult(Intent(activity, AddToDoItemActivity::class.java), activityRequestCode)
     }
 
     fun setPresenter(presenter: ToDoContract.Presenter) {
         this.mPresenter = presenter
+    }
+
+    fun setToDoSet(toDoSet: MutableSet<String>) {
+        this.mToDoSet = toDoSet
     }
 }

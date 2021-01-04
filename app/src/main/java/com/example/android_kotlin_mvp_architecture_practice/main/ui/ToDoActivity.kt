@@ -3,11 +3,9 @@ package com.example.android_kotlin_mvp_architecture_practice.main.ui
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import com.example.android_kotlin_mvp_architecture_practice.R
 import com.example.android_kotlin_mvp_architecture_practice.base.BaseActivity
 import com.example.android_kotlin_mvp_architecture_practice.base.BasePresenter
@@ -24,9 +22,9 @@ class ToDoActivity : BaseActivity(), ToDoContract.View {
 
     override fun initialize(state: Bundle?) {
         setSupportActionBar(findViewById(R.id.toolbar))
-        initializeFragmentPresenter()
         initializeToDoSet()
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+        initializeFragmentPresenter()
+        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             mPresenter.onClickAddNewToDoItemFab(ADD_TO_DO_ITEM_REQUEST_CODE)
         }
 
@@ -36,6 +34,7 @@ class ToDoActivity : BaseActivity(), ToDoContract.View {
     private fun initializeFragmentPresenter() {
         mPresenter = ToDoPresenter(this)
         mToDoFragment = ToDoFragment().newInstance()
+        mToDoFragment.setToDoSet(mToDoSet)
         mToDoFragment.setPresenter(mPresenter)
     }
 
@@ -74,11 +73,10 @@ class ToDoActivity : BaseActivity(), ToDoContract.View {
                     putStringSet(TO_DO_SET_KEY, mToDoSet)
                     apply()
                 }
+                mPresenter.showToDoList(mToDoSet.toList())
             }
         }
     }
-
-
 
     override fun showToDoList(dataSet: List<String>) {
         mToDoFragment.showToDoList(dataSet)

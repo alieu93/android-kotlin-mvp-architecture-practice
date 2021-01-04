@@ -24,7 +24,7 @@ class ToDoPresenterTest {
     @Test
     fun initializeList() {
         assertDoesNotThrow {
-            mPresenter?.initializeToDoList(DATA_SET_LIST)
+            mPresenter?.showToDoList(DATA_SET_LIST)
         }
         verify(mainView).showToDoList(DATA_SET_LIST)
     }
